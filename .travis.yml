@@ -1,0 +1,18 @@
+---
+language: go
+go:
+- 1.10.x
+
+before_deploy:
+- make package
+
+deploy:
+  provider: releases
+  skip_cleanup: true
+  api_key:
+    secure: Gg4em5ogORlliSG7PkXPfYkua39BT8jcCIlXU0T7jbnLW4ynUW5Xtm2VxMD/aDz2r3DEegGOVuTil7XHIlxhEKPBhER7+0Fvc0QbhCAbL6unqGdFfU1d6By90NjCs4SI7ZQWuoqdqqxKHWvq+iLxlYqiDNlXdqz8TNnrVc504GsQtNLl0gFEqocCCbSp6xsGAFRftqeXB2fVeUDQOKlWxatg8yS/ng0Lgvtjb/AwZwdeFb7rbR8cYUfI1y1DuZF4j/j++SS26gq1s5volLbGfM5ksS6il4yv72bCFgrlDjJiTkm9LLVzKl1pUa9Ug0UpzQKM+tsUvM6tVFkIKadG/FodBx/3iHS5NsfdCoXcsxLtZgBpPzlYh39uB7F6a1yjj+Km25tZmkwtLxbsKl2TCIYWPharfbNxIH/s/niCO7WIwN+kqPi5+CgYPxXWbJy2c/KRzoeiOnEb9PKDX75X5wonbQAZLXpaLIpwfNoBedvXpcxaLRbckp325psYnsiceGuN+iz3ONbDUNV6OJlEz0mIP3KWtRfxUgt4tE2JNpq3LXJPtObETpTP8w31GnKLO+syoBzBGVqnTXtCzk/JZlu6KWt5bySOixRVNzc7WaeIniR675TiyQXZZSx3Ms3AE9yJc/B+j6cKAQ3hDN5hQCWQ33p5lklIWZDht1cSoGw=
+  file_glob: true
+  file: build/*
+  on:
+    condition: $TRAVIS_GO_VERSION =~ ^1\.10
+    tags: true
