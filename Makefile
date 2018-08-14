@@ -40,7 +40,10 @@ misspell:
 shfmt:
 	go get -u mvdan.cc/sh/cmd/shfmt
 
-go-get: go-lint gocyclo megacheck misspell shfmt
+ginkgo:
+	go get -u github.com/onsi/ginkgo/ginkgo
+
+go-get: go-lint gocyclo megacheck misspell shfmt ginkgo
 
 package:
-	@$(dir $(realpath $(firstword $(MAKEFILE_LIST))))/scripts/package.sh $(dir $(realpath $(firstword $(MAKEFILE_LIST))))/build
+	@$(dir $(realpath $(firstword $(MAKEFILE_LIST))))/scripts/package.sh $(dir $(realpath $(firstword $(MAKEFILE_LIST))))build
