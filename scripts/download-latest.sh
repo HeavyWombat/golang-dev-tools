@@ -37,8 +37,14 @@ if [[ "$(uname -m)" != "x86_64" ]]; then
   exit 1
 fi
 
-# Find the latest golang-dev-tools version using the GitHub API
-LATEST_TAG="$(curl --silent --location https://api.github.com/repos/HeavyWombat/golang-dev-tools/releases | jq --raw-output '.[0].tag_name')"
+if [[ $# -eq 0 ]]; then
+  # Find the latest golang-dev-tools version using the GitHub API
+  SELECTED_TAG="$(curl --silent --location https://api.github.com/repos/HeavyWombat/golang-dev-tools/releases | jq --raw-output '.[0].tag_name')"
+else
+  # Use provided argument as tag to download
+  SELECTED_TAG="$1"
+fi
+
 SYSTEM_UNAME="$(uname | tr '[:upper:]' '[:lower:]')"
 
 # Find a suitable install location
@@ -56,7 +62,7 @@ fi
 # Download and install golang-dev-tools
 case "${SYSTEM_UNAME}" in
   darwin | linux)
-    DOWNLOAD_URI="https://github.com/HeavyWombat/golang-dev-tools/releases/download/${LATEST_TAG}/golang-dev-tools-${SYSTEM_UNAME}-amd64.tar.gz"
+    DOWNLOAD_URI="https://github.com/HeavyWombat/golang-dev-tools/releases/download/${SELECTED_TAG}/golang-dev-tools-${SYSTEM_UNAME}-amd64.tar.gz"
 
     echo -e "Downloading \\033[4;94m${DOWNLOAD_URI}\\033[0m to place tools into \\033[1m${TARGET_DIR}\\033[0m"
     if curl --progress-bar --location "${DOWNLOAD_URI}" | tar -xzf - -C "${TARGET_DIR}"; then
