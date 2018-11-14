@@ -5,7 +5,7 @@ go:
 - 1.11.x
 
 before_deploy:
-- make package
+- make
 
 deploy:
   provider: releases

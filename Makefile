@@ -18,32 +18,13 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 
-all: go-get
+.PHONY: clean package
 
-.PHONY: clean
+all: package
+
 clean:
-	@rm -rf $(dir $(realpath $(firstword $(MAKEFILE_LIST))))/binaries
-	@rm -rf $(dir $(realpath $(firstword $(MAKEFILE_LIST))))/build
-
-go-lint:
-	go get -u golang.org/x/lint/golint
-
-gocyclo:
-	go get -u github.com/fzipp/gocyclo
-
-megacheck:
-	go get -u honnef.co/go/tools/cmd/megacheck
-
-misspell:
-	go get -u github.com/client9/misspell/cmd/misspell
-
-shfmt:
-	go get -u mvdan.cc/sh/cmd/shfmt
-
-ginkgo:
-	go get -u github.com/onsi/ginkgo/ginkgo
-
-go-get: go-lint gocyclo megacheck misspell shfmt ginkgo
+	@rm -rf $(dir $(realpath $(firstword $(MAKEFILE_LIST))))binaries
+	@rm -rf $(dir $(realpath $(firstword $(MAKEFILE_LIST))))build
 
 package:
 	@$(dir $(realpath $(firstword $(MAKEFILE_LIST))))/scripts/package.sh $(dir $(realpath $(firstword $(MAKEFILE_LIST))))build
