@@ -40,8 +40,7 @@ while read -r OS ARCH; do
     github.com/modocache/gover \
     github.com/onsi/ginkgo/ginkgo \
     golang.org/x/lint/golint \
-    honnef.co/go/tools/cmd/megacheck \
-    mvdan.cc/sh/cmd/shfmt; do
+    honnef.co/go/tools/cmd/megacheck; do
 
     if [[ ! -d "$GOPATH/src/${PKGPATH}" ]]; then
       go get -d "${PKGPATH}"
@@ -50,7 +49,7 @@ while read -r OS ARCH; do
     VERSION=$(cd "$GOPATH/src/${PKGPATH}" && (git describe --tags 2>/dev/null || git rev-parse HEAD | cut -c-8))
 
     echo -e "Compiling \\033[1m${PKGPATH}\\033[0m version \\033[1;3m${VERSION}\\033[0m for OS \\033[1;34m${OS}\\033[0m and architecture \\033[1;33m${ARCH}\\033[0m"
-    (cd "${TARGET_PATH}" && GOOS="$OS" GOARCH="$ARCH" go build -a -ldflags='-s -w -extldflags "-static"' "${PKGPATH}")
+    (cd "${TARGET_PATH}" && GOOS="$OS" GOARCH="$ARCH" go build -tags netgo -ldflags='-s -w -extldflags "-static"' "${PKGPATH}")
 
   done
 
