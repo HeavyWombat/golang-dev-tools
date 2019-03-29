@@ -27,17 +27,17 @@ if ! hash curl 2>/dev/null; then
   exit 1
 fi
 
-if ! hash jq 2>/dev/null; then
-  echo -e 'Required tool \033[1mjq\033[0m is not installed.'
-  exit 1
-fi
-
 if [[ "$(uname -m)" != "x86_64" ]]; then
   echo -e "Unsupported machine type \\033[1m$(uname -m)\\033[0m: Please check \\033[4;94mhttps://api.github.com/repos/HeavyWombat/golang-dev-tools/releases\\033[0m manually"
   exit 1
 fi
 
 if [[ $# -eq 0 ]]; then
+  if ! hash jq 2>/dev/null; then
+    echo -e 'Required tool \033[1mjq\033[0m is not installed.'
+    exit 1
+  fi
+
   # Find the latest golang-dev-tools version using the GitHub API
   SELECTED_TAG="$(curl --silent --location https://api.github.com/repos/HeavyWombat/golang-dev-tools/releases | jq --raw-output '.[0].tag_name')"
 else
