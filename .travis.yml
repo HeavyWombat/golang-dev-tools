@@ -1,7 +1,7 @@
 ---
 language: go
 go:
-- 1.12.x
+- 1.13.x
 
 before_deploy:
 - make
@@ -14,5 +14,5 @@ deploy:
   file_glob: true
   file: build/*
   on:
-    condition: $TRAVIS_GO_VERSION =~ ^1\.12
+    condition: $TRAVIS_GO_VERSION =~ ^1\.13
     tags: true
