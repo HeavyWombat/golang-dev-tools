@@ -36,7 +36,7 @@ while read -r OS ARCH; do
 
   while read -r DOWNLOAD_PKG INSTALL_PKG BINARY_NAME MODULE_MODE; do
     if [[ ! -d "$GOPATH/src/${DOWNLOAD_PKG}" ]]; then
-      GO111MODULE="${MODULE_MODE}" go get -d "${DOWNLOAD_PKG}"
+      GO111MODULE="${MODULE_MODE}" go get -d "${DOWNLOAD_PKG}/..."
     fi
 
     echo -e "Building \\033[1m${INSTALL_PKG}\\033[0m for OS \\033[1;34m${OS}\\033[0m and architecture \\033[1;33m${ARCH}\\033[0m"
@@ -55,6 +55,7 @@ github.com/fzipp/gocyclo github.com/fzipp/gocyclo gocyclo auto
 github.com/modocache/gover github.com/modocache/gover gover auto
 github.com/onsi/ginkgo/ginkgo github.com/onsi/ginkgo/ginkgo ginkgo auto
 golang.org/x/lint/golint golang.org/x/lint/golint golint auto
+github.com/securego/gosec github.com/securego/gosec/cmd/gosec gosec auto
 EOT
 
   echo -e "Package binaries into tarball \\033[1;32m${OUTPUT_DIR}/golang-dev-tools-${OS}-${ARCH}.tar.gz\\033[0m"
