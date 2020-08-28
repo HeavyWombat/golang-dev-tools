@@ -49,7 +49,6 @@ while read -r OS ARCH; do
 
   done <<EOT
 github.com/client9/misspell github.com/client9/misspell/cmd/misspell misspell auto
-github.com/homeport/pina-golada/cmd/golada github.com/homeport/pina-golada/cmd/golada pina-golada on
 honnef.co/go/tools/cmd/staticcheck honnef.co/go/tools/cmd/staticcheck staticcheck auto
 github.com/fzipp/gocyclo github.com/fzipp/gocyclo gocyclo auto
 github.com/modocache/gover github.com/modocache/gover gover auto
